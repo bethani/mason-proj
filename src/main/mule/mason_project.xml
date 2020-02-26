@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="a9870914-f2e1-48b1-8e3f-ae1250a6e08c" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="b4d45694-48e7-4748-bb89-5af6aea2d3b6" basePath="/http://training-american-ws.cloudhub.io" />
+	<flow name="mason_projectFlow" doc:id="66de4144-5c32-4817-8bf6-ccc68b622587" >
+		<http:listener doc:name="Listener" doc:id="a4d9f78f-53f3-4521-aaf4-628f1f0d8e17" config-ref="HTTP_Listener_config" path="/mason"/>
+		<http:request method="GET" doc:name="Request" doc:id="cc0ba266-238c-455e-b6d4-223f07d8802c" config-ref="HTTP_Request_configuration" path="/api/flights"/>
+		<logger level="INFO" doc:name="Logger" doc:id="0d8e2c27-940d-453f-925e-821f2a176017" message="#[payload]"/>
+	</flow>
+</mule>
